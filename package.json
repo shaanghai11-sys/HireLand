@@ -1,0 +1,19 @@
+{
+  "name": "hireland-ai-interview-simulator",
+  "version": "0.15.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "openai": "^5.20.0",
+    "monaco-editor": "^0.52.2",
+    "multer": "^2.0.2",
+    "mammoth": "^1.8.0",
+    "pdf-parse": "^1.1.1"
+  }
+}

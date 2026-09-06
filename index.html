@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0c1020" />
+  <title>Hireland — AI Interview Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Sora:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="aurora aurora-a"></div>
+  <div class="aurora aurora-b"></div>
+  <div class="aurora aurora-c"></div>
+
+  <!-- Cinematic Entry Sequence -->
+  <section id="intro" class="intro-screen" aria-label="Opening animation">
+    <div class="intro-grid"></div>
+    <div class="intro-orbit orbit-one"></div>
+    <div class="intro-orbit orbit-two"></div>
+
+    <div class="intro-content">
+      <div class="intro-pill" data-intro-step="1">
+        <span class="pulse-dot"></span>
+        AI INTERVIEW ENVIRONMENT
+      </div>
+
+      <div class="intro-copy" data-intro-step="2">
+        <p class="intro-kicker kinetic-kicker">
+          <span>Prepare</span><i>•</i><span>Perform</span><i>•</i><span>Progress</span>
+        </p>
+
+        <div class="tagline-shell">
+          <p class="tagline-lead">Your next interview should feel familiar.</p>
+          <h1 class="kinetic-title">
+            <span class="title-line">Walk in calmer.</span>
+            <span class="title-line gradient-line">Walk out sharper.</span>
+          </h1>
+          <p class="tagline-sub">
+            Train the way interviews actually feel — focused, adaptive, and human.
+          </p>
+        </div>
+      </div>
+
+      <div class="interview-sequence" data-intro-step="3">
+        <div class="sequence-card">
+          <div class="mini-icon">01</div>
+          <div>
+            <strong>Read the room</strong>
+            <span>Communication • confidence • clarity</span>
+          </div>
+        </div>
+        <div class="sequence-line"></div>
+        <div class="sequence-card">
+          <div class="mini-icon">02</div>
+          <div>
+            <strong>Think under pressure</strong>
+            <span>Reasoning • coding • judgment</span>
+          </div>
+        </div>
+        <div class="sequence-line"></div>
+        <div class="sequence-card">
+          <div class="mini-icon">03</div>
+          <div>
+            <strong>Refine the signal</strong>
+            <span>Feedback • iteration • growth</span>
+          </div>
+        </div>
+      </div>
+
+      <button id="enterBtn" class="enter-btn" data-intro-step="4">
+        <span>Enter Hireland</span>
+        <span class="arrow">↗</span>
+      </button>
+</div>
+
+    <div class="intro-status">
+      <span>Preparing interview environment</span>
+      <div class="loading-track"><div class="loading-fill"></div></div>
+    </div>
+  </section>
+
+  <!-- App -->
+  <aside id="sideRail" class="side-rail" aria-label="Hireland utilities">
+    <div class="side-rail-glow"></div>
+
+    <div class="side-brand">
+      <div class="side-brand-mark">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="side-brand-copy">
+        <strong>HIRELAND</strong>
+        <small>Your workspace</small>
+      </div>
+    </div>
+
+    <div class="utility-panel">
+      <div class="utility-kicker">PERSONAL SPACE</div>
+      <div class="utility-note">
+        <span class="utility-note-dot"></span>
+        <div>
+          <strong>Workspace controls</strong>
+          <small>Settings and personal information will live here.</small>
+        </div>
+      </div>
+
+      <div class="drawer-ambient" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="side-bottom">
+      <button class="side-link utility-link" type="button">
+        <span class="side-link-icon">⚙</span>
+        <span class="side-link-text">
+          <strong>Settings</strong>
+          <small>Preferences & interface</small>
+        </span>
+        <span class="utility-chevron">›</span>
+      </button>
+
+      <button class="side-profile-card" type="button">
+        <span class="side-avatar">H</span>
+        <span class="side-profile-copy">
+          <strong>Your Profile</strong>
+          <small>Identity & progress</small>
+        </span>
+        <span class="profile-arrow">›</span>
+      </button>
+    </div>
+  </aside>
+
+  <main id="app" class="app-shell" aria-hidden="true">
+    <div id="entryTransition" class="entry-transition" aria-hidden="true">
+      <div class="transition-flash"></div>
+      <div class="transition-panel transition-left"></div>
+      <div class="transition-panel transition-right"></div>
+      <div class="transition-core">
+        <div class="transition-ring tr-one"></div>
+        <div class="transition-ring tr-two"></div>
+        <div class="transition-ring tr-three"></div>
+        <div class="transition-spark"></div>
+        <span>HIRELAND</span>
+      </div>
+      <div class="transition-line"></div>
+    </div>
+
+    <div class="site-reflection" id="siteReflection" aria-hidden="true"></div>
+    <div class="page-light light-one"></div>
+    <div class="page-light light-two"></div>
+    <header class="topbar">
+      <button id="sideMenuToggle" class="menu-toggle" aria-label="Open navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <a href="#" class="brand brand-text-only" aria-label="Hireland home">
+        <div class="brand-copy">
+          <strong>HIRELAND</strong>
+          <small>AI Interview Simulator</small>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Primary">
+        <button class="nav-tab active" data-tab="arena">
+          <span class="nav-icon">◎</span>
+          <span>Interview Arena</span>
+        </button>
+        <button class="nav-tab" data-tab="forge">
+          <span class="nav-icon">⌘</span>
+          <span>CodeForge</span>
+        </button>
+        <button class="nav-tab" data-tab="vault">
+          <span class="nav-icon">◇</span>
+          <span>Problem Vault</span>
+        </button>
+      </nav>
+
+      <div class="top-actions">
+        <button class="icon-btn" id="soundToggle" aria-label="Toggle UI sound">◌</button>
+        <button class="profile-chip">
+          <span class="profile-orb">H</span>
+          <span>Explorer</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="content-wrap">
+      <!-- INTERVIEW ARENA -->
+      <section class="tab-panel active" id="arena">
+        <!-- Arena landing -->
+        <div id="arenaLanding" class="arena-view arena-landing">
+          <div class="arena-hero reflection-surface">
+            <div class="arena-hero-grid"></div>
+            <div class="arena-scan-line"></div>
+
+            <div class="arena-hero-copy">
+              <div class="arena-kicker">
+                <span class="arena-kicker-dot"></span>
+                INTERVIEW ARENA
+              </div>
+
+              <div class="arena-title-wrap">
+                <span class="arena-title-overline">YOUR INTERVIEW. YOUR VARIABLES.</span>
+                <h2>
+                  Build the room<br>
+                  <span>before you enter it.</span>
+                </h2>
+              </div>
+
+              <p>
+                Shape the interviewer, company lens, pressure, evidence, and interview
+                mode before the first question is asked. Hireland then carries that
+                context through the entire conversation.
+              </p>
+
+              <div class="arena-hero-actions">
+                <button id="openArenaArchitect" class="arena-primary-btn magnetic-btn">
+                  <span>
+                    <small>CONFIGURE THE INTERVIEW</small>
+                    <strong>Architect my session</strong>
+                  </span>
+                  <i>↗</i>
+                </button>
+
+                <div class="arena-live-capabilities">
+                  <span><i></i> adaptive interviewer</span>
+                  <span><i></i> voice-ready</span>
+                  <span><i></i> camera-ready</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="arena-hero-stage">
+              <div class="arena-stage-label">
+                <span>SESSION ENVIRONMENT</span>
+                <strong>Waiting for your brief</strong>
+              </div>
+
+              <div class="arena-orbit-system">
+                <div class="arena-orbit ao-one"></div>
+                <div class="arena-orbit ao-two"></div>
+                <div class="arena-orbit ao-three"></div>
+
+                <div class="arena-core">
+                  <div class="arena-face">
+                    <span></span><span></span>
+                  </div>
+                  <strong>Interviewer</strong>
+                  <small>not calibrated yet</small>
+                </div>
+
+                <div class="arena-signal-card asc-one">
+                  <span>ROLE</span>
+                  <strong>your target</strong>
+                </div>
+                <div class="arena-signal-card asc-two">
+                  <span>PRESSURE</span>
+                  <strong>adaptive</strong>
+                </div>
+                <div class="arena-signal-card asc-three">
+                  <span>EVIDENCE</span>
+                  <strong>JD + résumé</strong>
+                </div>
+                <div class="arena-signal-card asc-four">
+                  <span>PRESENCE</span>
+                  <strong>voice + camera</strong>
+                </div>
+              </div>
+
+              <div class="arena-stage-footer">
+                <div class="arena-wave" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <span>Calm interface. Serious interview.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="arena-principles">
+            <article class="arena-principle reflection-surface">
+              <span>01</span>
+              <div>
+                <strong>Context before questions</strong>
+                <p>The interview is grounded in the role, company, job description, and your own résumé.</p>
+              </div>
+            </article>
+
+            <article class="arena-principle reflection-surface">
+              <span>02</span>
+              <div>
+                <strong>Pressure with intent</strong>
+                <p>Choose the interviewer’s behaviour and how aggressively the session should adapt.</p>
+              </div>
+            </article>
+
+            <article class="arena-principle reflection-surface">
+              <span>03</span>
+              <div>
+                <strong>Speak naturally</strong>
+                <p>Use voice typing and a live camera preview so the session feels closer to an actual interview.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Session architect -->
+        <div id="arenaArchitect" class="arena-view arena-architect" hidden>
+          <div class="arena-architect-top">
+            <button id="arenaBackToLanding" class="arena-text-btn">← Back to Arena</button>
+
+            <div class="arena-progress">
+              <div class="arena-progress-copy">
+                <span id="arenaStepNumber">01</span>
+                <div>
+                  <small>SESSION ARCHITECT</small>
+                  <strong id="arenaStepTitle">Define the target</strong>
+                </div>
+              </div>
+
+              <div class="arena-progress-track">
+                <i id="arenaProgressFill"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="arena-architect-grid">
+            <section class="arena-form-shell reflection-surface">
+              <!-- Step 1 -->
+              <div class="arena-step active" data-arena-step="1">
+                <div class="arena-step-head">
+                  <span class="arena-step-eyebrow">01 · TARGET</span>
+                  <h3>What are you walking into?</h3>
+                  <p>Give Hireland enough context to make the interview feel intentional from the first question.</p>
+                </div>
+
+                <div class="arena-field">
+                  <label for="arenaTargetRole">
+                    Target role
+                    <span>type your exact role or choose a starting point</span>
+                  </label>
+
+                  <div class="arena-input-with-action">
+                    <input id="arenaTargetRole" type="text"
+                      placeholder="e.g. Software Engineer, Product Manager, SRE">
+                    <button class="arena-voice-btn" type="button"
+                      data-voice-target="arenaTargetRole" title="Voice type target role">
+                      <span>◉</span>
+                      Voice
+                    </button>
+                  </div>
+
+                  <div class="arena-chip-row arena-role-presets" data-arena-target="role">
+                    <button type="button" data-value="Software Engineer">Software Engineer</button>
+                    <button type="button" data-value="Data Scientist">Data Scientist</button>
+                    <button type="button" data-value="Product Manager">Product Manager</button>
+                    <button type="button" data-value="SRE / DevOps">SRE / DevOps</button>
+                    <button type="button" data-value="Business Analyst">Business Analyst</button>
+                    <button type="button" data-value="Consulting">Consulting</button>
+                  </div>
+                </div>
+
+                <div class="arena-field">
+                  <label>
+                    Experience level
+                    <span>changes question depth, assumptions, and follow-ups</span>
+                  </label>
+
+                  <div class="arena-choice-grid arena-experience-grid" data-arena-choice="experience">
+                    <button class="arena-choice active" type="button" data-value="Student / Intern">
+                      <span>STUDENT</span>
+                      <strong>Student / Intern</strong>
+                      <small>Potential, fundamentals, learning signal</small>
+                    </button>
+                    <button class="arena-choice" type="button" data-value="Entry Level">
+                      <span>ENTRY</span>
+                      <strong>Entry level</strong>
+                      <small>Execution, clarity, practical fundamentals</small>
+                    </button>
+                    <button class="arena-choice" type="button" data-value="Mid Level">
+                      <span>MID</span>
+                      <strong>Mid level</strong>
+                      <small>Ownership, trade-offs, independent judgment</small>
+                    </button>
+                    <button class="arena-choice" type="button" data-value="Senior">
+                      <span>SENIOR</span>
+                      <strong>Senior</strong>
+                      <small>Architecture, influence, ambiguity, leadership</small>
+                    </button>
+                    <button class="arena-choice" type="button" data-value="Lead / Manager">
+                      <span>LEAD</span>
+                      <strong>Lead / Manager</strong>
+                      <small>Strategy, people judgment, organizational impact</small>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="arena-step" data-arena-step="2" hidden>
+                <div class="arena-step-head">
+                  <span class="arena-step-eyebrow">02 · INTERVIEW DESIGN</span>
+                  <h3>Shape the person across the table.</h3>
+                  <p>Mode, behaviour, company lens, duration, and pressure all change how the interviewer responds.</p>
+                </div>
+
+                <div class="arena-field">
+                  <label>Interview mode</label>
+                  <div class="arena-choice-grid arena-mode-grid" data-arena-choice="mode">
+                    <button class="arena-choice active" type="button" data-value="Mixed">
+                      <span>◈</span><strong>Mixed</strong><small>Behavioral + technical judgment</small>
+                    </button>
+                    <button class="arena-choice" type="button" data-value="Behavioral">
+                      <span>◎</span><strong>Behavioral</strong><small>Stories, judgment, ownership</small>
+                    </button>
+                    <button class="arena-choice" type="button" data-value="Technical">
+                      <span>⌘</span><strong>Technical</strong><small>Concepts, systems, depth</small>
+                    </button>
+                    <button class="arena-choice" type="button" data-value="System Design">
+                      <span>◇</span><strong>System Design</strong><small>Architecture and trade-offs</small>
+                    </button>
+                    <button class="arena-choice" type="button" data-value="Managerial">
+                      <span>△</span><strong>Managerial</strong><small>People, prioritization, conflict</small>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="arena-field">
+                  <label>
+                    Interviewer behaviour
+                    <span>the social style and challenge pattern of the interviewer</span>
+                  </label>
+
+                  <div class="arena-choice-grid arena-behaviour-grid" data-arena-choice="behaviour">
+                    <button class="arena-choice active" type="button" data-value="Calm & Supportive">
+                      <span>CALM</span><strong>Calm & supportive</strong><small>Warm prompts, room to think</small>
+                    </button>
+                    <button class="arena-choice" type="button" data-value="Neutral & Professional">
+                      <span>NEUTRAL</span><strong>Neutral professional</strong><small>Balanced, realistic, minimal cues</small>
+                    </button>
+                    <button class="arena-choice" type="button" data-value="Skeptical & Probing">
+                      <span>PROBE</span><strong>Skeptical & probing</strong><small>Challenges claims and assumptions</small>
+                    </button>
+                    <button class="arena-choice" type="button" data-value="Rapid Fire">
+                      <span>FAST</span><strong>Rapid fire</strong><small>Shorter windows, quicker pivots</small>
+                    </button>
+                    <button class="arena-choice" type="button" data-value="Executive">
+                      <span>EXEC</span><strong>Executive</strong><small>High-level judgment, concise answers</small>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="arena-two-column-fields">
+                  <div class="arena-field">
+                    <label>Company lens</label>
+                    <div class="arena-company-grid" data-arena-choice="company">
+                      <button class="arena-company active" type="button" data-value="General">General</button>
+                      <button class="arena-company" type="button" data-value="Amazon">Amazon</button>
+                      <button class="arena-company" type="button" data-value="Google">Google</button>
+                      <button class="arena-company" type="button" data-value="Microsoft">Microsoft</button>
+                      <button class="arena-company" type="button" data-value="Startup">Startup</button>
+                      <button class="arena-company" type="button" data-value="Consulting">Consulting</button>
+                    </div>
+                    <input id="arenaCustomCompany" class="arena-subtle-input" type="text"
+                      placeholder="Or type another company">
+                  </div>
+
+                  <div class="arena-field">
+                    <label>Session length</label>
+                    <div class="arena-length-grid" data-arena-choice="length">
+                      <button class="arena-length active" type="button" data-value="15">15<span>min</span></button>
+                      <button class="arena-length" type="button" data-value="30">30<span>min</span></button>
+                      <button class="arena-length" type="button" data-value="45">45<span>min</span></button>
+                      <button class="arena-length" type="button" data-value="60">60<span>min</span></button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="arena-field arena-pressure-field">
+                  <div class="arena-pressure-head">
+                    <label>
+                      Adaptive pressure
+                      <span>how aggressively Hireland should probe, interrupt assumptions, and raise difficulty</span>
+                    </label>
+                    <div class="arena-pressure-value">
+                      <strong id="arenaPressureValue">42</strong>
+                      <span id="arenaPressureLabel">Balanced</span>
+                    </div>
+                  </div>
+
+                  <div class="arena-pressure-control" id="arenaPressureControl">
+                    <input id="arenaPressure" type="range" min="0" max="100" value="42">
+                    <div class="arena-pressure-labels">
+                      <span>calm</span><span>realistic</span><span>intense</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="arena-step" data-arena-step="3" hidden>
+                <div class="arena-step-head">
+                  <span class="arena-step-eyebrow">03 · EVIDENCE PACK</span>
+                  <h3>Ground the interview in something real.</h3>
+                  <p>Job description and résumé context give the interviewer permission to ask specific, relevant follow-ups.</p>
+                </div>
+
+                <div class="arena-field">
+                  <label for="arenaJobDescription">
+                    Job description
+                    <span>paste the real JD, responsibilities, or role brief</span>
+                  </label>
+
+                  <div class="arena-textarea-shell">
+                    <textarea id="arenaJobDescription"
+                      placeholder="Paste the job description here…"></textarea>
+
+                    <div class="arena-textarea-tools">
+                      <span id="arenaJDCount">0 characters</span>
+                      <button class="arena-voice-btn compact" type="button"
+                        data-voice-target="arenaJobDescription">
+                        <span>◉</span>
+                        Voice type
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="arena-field">
+                  <label>
+                    Your résumé
+                    <span>PDF, DOCX, TXT — used only to personalize this interview session</span>
+                  </label>
+
+                  <div id="arenaResumeDrop" class="arena-resume-drop">
+                    <input id="arenaResumeFile" type="file"
+                      accept=".pdf,.docx,.txt,.md,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                    <div class="arena-resume-icon">↥</div>
+                    <strong>Drop your résumé here</strong>
+                    <span>or click to choose a file</span>
+                    <small>PDF · DOCX · TXT · up to 6 MB</small>
+                  </div>
+
+                  <div id="arenaResumeStatus" class="arena-resume-status" hidden>
+                    <div class="arena-resume-file">
+                      <span class="arena-resume-file-icon">R</span>
+                      <div>
+                        <strong id="arenaResumeName">resume.pdf</strong>
+                        <small id="arenaResumeMeta">Extracted and ready</small>
+                      </div>
+                    </div>
+                    <button id="arenaReplaceResume" type="button">Replace</button>
+                  </div>
+
+                  <details class="arena-resume-paste">
+                    <summary>Or paste résumé text manually</summary>
+                    <textarea id="arenaResumeText"
+                      placeholder="Paste résumé text here if you do not want to upload a file…"></textarea>
+                  </details>
+                </div>
+              </div>
+
+              <!-- Step 4 -->
+              <div class="arena-step" data-arena-step="4" hidden>
+                <div class="arena-step-head">
+                  <span class="arena-step-eyebrow">04 · PRESENCE CHECK</span>
+                  <h3>Make the room feel real.</h3>
+                  <p>Camera and voice are optional, but they make the practice environment much closer to an actual interview.</p>
+                </div>
+
+                <div class="arena-device-grid">
+                  <div class="arena-camera-card">
+                    <div class="arena-camera-head">
+                      <div>
+                        <span>LIVE CAMERA</span>
+                        <strong id="arenaCameraStatus">Camera off</strong>
+                      </div>
+                      <span id="arenaCameraDot" class="arena-device-dot"></span>
+                    </div>
+
+                    <div class="arena-camera-preview">
+                      <video id="arenaSetupVideo" autoplay muted playsinline></video>
+                      <div id="arenaCameraPlaceholder" class="arena-camera-placeholder">
+                        <div class="camera-outline">
+                          <span></span>
+                        </div>
+                        <strong>Your preview appears here</strong>
+                        <small>Nothing is recorded by this local preview.</small>
+                      </div>
+                      <div class="arena-camera-frame"></div>
+                    </div>
+
+                    <button id="arenaToggleCamera" class="arena-device-btn" type="button">
+                      <span>◉</span>
+                      Enable camera
+                    </button>
+                  </div>
+
+                  <div class="arena-voice-card">
+                    <div class="arena-camera-head">
+                      <div>
+                        <span>VOICE INPUT</span>
+                        <strong id="arenaVoiceSupport">Checking browser…</strong>
+                      </div>
+                      <span id="arenaVoiceDot" class="arena-device-dot"></span>
+                    </div>
+
+                    <div class="arena-voice-visual">
+                      <div class="arena-voice-rings">
+                        <i></i><i></i><i></i>
+                        <span>◉</span>
+                      </div>
+                      <strong>Voice typing is built into the interview room.</strong>
+                      <p>Speak an answer and Hireland will place the transcript into the response box before you send it.</p>
+                    </div>
+
+                    <button id="arenaTestVoice" class="arena-device-btn secondary" type="button">
+                      <span>∿</span>
+                      Test voice typing
+                    </button>
+
+                    <div id="arenaVoiceTestResult" class="arena-voice-test-result">
+                      Say a short sentence to test your microphone.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="arena-readiness">
+                  <span class="arena-readiness-dot"></span>
+                  <div>
+                    <strong>Ready when you are.</strong>
+                    <p>Your selected interview design and evidence pack will be carried into the live room.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="arena-step-actions">
+                <button id="arenaPrevStep" class="arena-secondary-btn" type="button" hidden>← Back</button>
+                <button id="arenaNextStep" class="arena-primary-action" type="button">
+                  <span id="arenaNextLabel">Continue</span>
+                  <i>→</i>
+                </button>
+              </div>
+            </section>
+
+            <!-- Session DNA -->
+            <aside class="arena-dna reflection-surface">
+              <div class="arena-dna-head">
+                <span>SESSION DNA</span>
+                <strong>live configuration</strong>
+              </div>
+
+              <div class="arena-dna-orbit">
+                <div class="arena-dna-ring"></div>
+                <div class="arena-dna-ring inner"></div>
+                <div class="arena-dna-core">
+                  <span id="arenaDNAPressure">42</span>
+                  <small>pressure</small>
+                </div>
+              </div>
+
+              <div class="arena-dna-list">
+                <div>
+                  <span>ROLE</span>
+                  <strong id="arenaDNARole">Not set</strong>
+                </div>
+                <div>
+                  <span>LEVEL</span>
+                  <strong id="arenaDNALevel">Student / Intern</strong>
+                </div>
+                <div>
+                  <span>MODE</span>
+                  <strong id="arenaDNAMode">Mixed</strong>
+                </div>
+                <div>
+                  <span>INTERVIEWER</span>
+                  <strong id="arenaDNABehaviour">Calm & Supportive</strong>
+                </div>
+                <div>
+                  <span>COMPANY LENS</span>
+                  <strong id="arenaDNACompany">General</strong>
+                </div>
+                <div>
+                  <span>LENGTH</span>
+                  <strong id="arenaDNALength">15 minutes</strong>
+                </div>
+              </div>
+
+              <div class="arena-dna-evidence">
+                <div>
+                  <span id="arenaDNAJDState" class="arena-state-dot"></span>
+                  <div><strong>Job description</strong><small id="arenaDNAJDText">waiting for context</small></div>
+                </div>
+                <div>
+                  <span id="arenaDNAResumeState" class="arena-state-dot"></span>
+                  <div><strong>Résumé</strong><small id="arenaDNAResumeText">waiting for résumé</small></div>
+                </div>
+              </div>
+
+              <div class="arena-dna-note">
+                <span>✦</span>
+                <p>Hireland uses these variables to decide what to ask, how hard to probe, and when to change direction.</p>
+              </div>
+            </aside>
+          </div>
+        </div>
+
+        <!-- Launch transition -->
+        <div id="arenaLaunch" class="arena-view arena-launch" hidden>
+          <div class="arena-launch-grid"></div>
+          <div class="arena-launch-core">
+            <div class="arena-launch-rings">
+              <i></i><i></i><i></i>
+              <span>H</span>
+            </div>
+
+            <span class="arena-launch-kicker">INTERVIEW ARENA</span>
+            <h3 id="arenaLaunchMessage">Reading the brief…</h3>
+            <p id="arenaLaunchSub">Calibrating interviewer context.</p>
+
+            <div class="arena-launch-track">
+              <span id="arenaLaunchFill"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live interview room -->
+        <div id="arenaLiveRoom" class="arena-view arena-live-room" hidden>
+          <div class="arena-live-top">
+            <button id="arenaExitInterview" class="arena-text-btn">← End interview</button>
+
+            <div class="arena-session-clock">
+              <span class="arena-live-pulse"></span>
+              <div>
+                <small>LIVE SESSION</small>
+                <strong id="arenaSessionClock">15:00</strong>
+              </div>
+            </div>
+
+            <div class="arena-live-meta">
+              <span id="arenaLiveRole">Role</span>
+              <span id="arenaLiveMode">Mixed</span>
+              <span id="arenaLiveCompany">General</span>
+            </div>
+          </div>
+
+          <div class="arena-live-grid">
+            <section class="arena-interviewer-stage reflection-surface">
+              <div class="arena-interviewer-top">
+                <div>
+                  <span>AI INTERVIEWER</span>
+                  <strong id="arenaLiveBehaviour">Calm & Supportive</strong>
+                </div>
+                <div class="arena-interviewer-controls">
+                  <button id="arenaReplayQuestion" class="arena-interviewer-control" type="button" title="Replay interviewer">
+                    <span>▶</span> Replay
+                  </button>
+                  <button id="arenaToggleInterviewerVoice" class="arena-interviewer-control active" type="button" title="Toggle interviewer voice">
+                    <span>◉</span> Voice on
+                  </button>
+                  <span id="arenaLivePressure" class="arena-pressure-pill">Pressure 42</span>
+                </div>
+              </div>
+
+              <div class="arena-interviewer-presence">
+                <div class="arena-live-orbit alo-one"></div>
+                <div class="arena-live-orbit alo-two"></div>
+                <div class="arena-live-orbit alo-three"></div>
+
+                <div class="arena-interviewer-avatar">
+                  <div class="arena-face large">
+                    <span></span><span></span>
+                  </div>
+                  <strong id="arenaInterviewerName">Hireland Interviewer</strong>
+                  <small id="arenaInterviewerState">listening mode</small>
+
+                  <div class="arena-voice-persona">
+                    <span id="arenaVoicePersona">balanced voice</span>
+                    <i></i>
+                    <span id="arenaSpeechPace">natural pace</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="arena-question-shell">
+                <div class="arena-question-top">
+                  <span id="arenaQuestionIndex">QUESTION 01</span>
+                  <div class="arena-question-meta">
+                    <span id="arenaQuestionFocus">Opening</span>
+                    <span id="arenaQuestionType">WELCOME</span>
+                  </div>
+                </div>
+
+                <div id="arenaSpokenIntro" class="arena-spoken-intro" hidden></div>
+
+                <h3 id="arenaCurrentQuestion">
+                  Tell me about yourself and what brings you to this role.
+                </h3>
+
+                <div id="arenaSpeakingWave" class="arena-speaking-wave" hidden aria-hidden="true">
+                  <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                  <small>interviewer speaking</small>
+                </div>
+
+                <div id="arenaInterviewerReaction" class="arena-interviewer-reaction" hidden>
+                  <span>INTERVIEWER SIGNAL</span>
+                  <p></p>
+                </div>
+              </div>
+            </section>
+
+            <aside class="arena-live-side">
+              <div class="arena-candidate-camera reflection-surface">
+                <div class="arena-camera-head">
+                  <div>
+                    <span>YOU</span>
+                    <strong>Candidate camera</strong>
+                  </div>
+                  <span class="arena-device-dot" id="arenaLiveCameraDot"></span>
+                </div>
+
+                <div class="arena-live-video-shell">
+                  <video id="arenaLiveVideo" autoplay muted playsinline></video>
+                  <div id="arenaLiveCameraPlaceholder" class="arena-live-camera-placeholder">
+                    <span>H</span>
+                    <strong>Camera is off</strong>
+                  </div>
+                  <div class="arena-video-corners"></div>
+                </div>
+              </div>
+
+              <div class="arena-session-pulse-card reflection-surface">
+                <div class="arena-pulse-head">
+                  <span>SESSION PULSE</span>
+                  <strong id="arenaTurnLabel">Turn 1</strong>
+                </div>
+
+                <div class="arena-pulse-pressure">
+                  <div class="arena-pulse-label">
+                    <span>Adaptive pressure</span>
+                    <strong id="arenaPulsePressureValue">42</strong>
+                  </div>
+                  <div class="arena-pulse-track">
+                    <i id="arenaPulsePressureFill"></i>
+                  </div>
+                </div>
+
+                <div class="arena-pulse-grid">
+                  <div><span>LEVEL</span><strong id="arenaPulseLevel">Student / Intern</strong></div>
+                  <div><span>LENS</span><strong id="arenaPulseCompany">General</strong></div>
+                  <div><span>MODE</span><strong id="arenaPulseMode">Mixed</strong></div>
+                  <div><span>SIGNAL</span><strong id="arenaPulseSignal">Opening</strong></div>
+                </div>
+              </div>
+            </aside>
+          </div>
+
+          <section class="arena-answer-console reflection-surface">
+            <div class="arena-answer-head">
+              <div>
+                <span>YOUR RESPONSE</span>
+                <strong>Answer naturally. Edit the transcript before sending.</strong>
+              </div>
+
+              <div class="arena-answer-tools">
+                <span id="arenaAnswerCount">0 words</span>
+                <button id="arenaLiveVoice" class="arena-live-control" type="button">
+                  <span>◉</span>
+                  Voice type
+                </button>
+                <button id="arenaLiveCameraToggle" class="arena-live-control" type="button">
+                  <span>▣</span>
+                  Camera
+                </button>
+              </div>
+            </div>
+
+            <textarea id="arenaLiveAnswer"
+              placeholder="Type your answer here, or use Voice type…"></textarea>
+
+            <div class="arena-answer-footer">
+              <div class="arena-answer-hint">
+                <span>↵</span>
+                <p>Take your time. Hireland follows your answer, not a fixed script.</p>
+              </div>
+
+              <button id="arenaSendAnswer" class="arena-send-answer" type="button">
+                <span>
+                  <small>SEND RESPONSE</small>
+                  <strong>Continue interview</strong>
+                </span>
+                <i>→</i>
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <!-- Debrief -->
+        <div id="arenaDebrief" class="arena-view arena-debrief" hidden>
+          <div class="arena-debrief-hero reflection-surface">
+            <span class="arena-step-eyebrow">SESSION COMPLETE</span>
+            <h2>Interview debrief.</h2>
+            <p id="arenaDebriefSummary">
+              Your session summary will appear here.
+            </p>
+
+            <div class="arena-debrief-scoreline">
+              <div><span>ROLE</span><strong id="arenaDebriefRole">—</strong></div>
+              <div><span>TURNS</span><strong id="arenaDebriefTurns">—</strong></div>
+              <div><span>PRESSURE</span><strong id="arenaDebriefPressure">—</strong></div>
+            </div>
+          </div>
+
+          <div class="arena-debrief-grid">
+            <article class="arena-debrief-card reflection-surface">
+              <span>WHAT LANDED</span>
+              <h3>Strengths</h3>
+              <ul id="arenaDebriefStrengths"></ul>
+            </article>
+
+            <article class="arena-debrief-card reflection-surface">
+              <span>WHAT TO SHARPEN</span>
+              <h3>Improvements</h3>
+              <ul id="arenaDebriefImprovements"></ul>
+            </article>
+
+            <article class="arena-debrief-card reflection-surface">
+              <span>NEXT PRACTICE</span>
+              <h3>Recommended focus</h3>
+              <ul id="arenaDebriefFocus"></ul>
+            </article>
+          </div>
+
+          <div class="arena-debrief-actions">
+            <button id="arenaRestart" class="arena-primary-action" type="button">
+              Build another interview →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CODEFORGE -->
+      <section class="tab-panel" id="forge">
+        <div id="forgeLauncher" class="forge-launcher">
+          <div class="forge-hero reflection-surface">
+            <div class="forge-copy">
+              <div class="eyebrow">
+                <span class="eyebrow-dot forge-dot"></span>
+                AI-POWERED CODING PRACTICE
+              </div>
+
+              <span class="forge-overline">CODEFORGE</span>
+              <h2>One workspace.<br><span>Endless challenge patterns.</span></h2>
+
+              <p>
+                CodeForge builds a fresh interview-style challenge for each session from a
+                broad coding pool — algorithms, data structures, practical implementation,
+                debugging, and LeetCode-inspired patterns.
+              </p>
+
+              <div class="forge-pills">
+                <span><i></i> AI generated</span>
+                <span><i></i> LeetCode included</span>
+                <span><i></i> Difficulty matched</span>
+                <span><i></i> Language adapted</span>
+              </div>
+            </div>
+
+            <div class="forge-visual" aria-hidden="true">
+              <div class="forge-grid-lines"></div>
+              <div class="forge-core">
+                <div class="forge-core-mark">&lt;/&gt;</div>
+                <strong>Challenge Engine</strong>
+                <small>adaptive generation</small>
+              </div>
+              <div class="forge-node fn-one">DSA</div>
+              <div class="forge-node fn-two">AI</div>
+              <div class="forge-node fn-three">LC</div>
+              <div class="forge-node fn-four">DEV</div>
+            </div>
+          </div>
+
+          <div class="forge-builder reflection-surface">
+            <div class="builder-head">
+              <div>
+                <span class="builder-kicker">CHALLENGE CONFIGURATION</span>
+                <h3>Shape the round.</h3>
+              </div>
+              <span class="forge-ai-state" id="forgeAiState"><i></i> AI ready</span>
+            </div>
+
+            <div class="builder-grid">
+              <div class="builder-group">
+                <span class="builder-label">01 · Language</span>
+                <div class="choice-grid language-grid" data-forge-group="language">
+                  <button class="choice-card active" data-value="JavaScript">
+                    <span class="choice-symbol">JS</span>
+                    <span><strong>JavaScript</strong><small>Node-style solution</small></span>
+                  </button>
+                  <button class="choice-card" data-value="Python">
+                    <span class="choice-symbol">PY</span>
+                    <span><strong>Python</strong><small>Concise interview coding</small></span>
+                  </button>
+                  <button class="choice-card" data-value="Java">
+                    <span class="choice-symbol">JV</span>
+                    <span><strong>Java</strong><small>Structured implementation</small></span>
+                  </button>
+                  <button class="choice-card" data-value="C++">
+                    <span class="choice-symbol">C+</span>
+                    <span><strong>C++</strong><small>Performance oriented</small></span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="builder-group">
+                <span class="builder-label">02 · Difficulty</span>
+                <div class="choice-grid compact-grid" data-forge-group="difficulty">
+                  <button class="choice-card active" data-value="Easy">
+                    <span class="difficulty-dot easy-dot"></span>
+                    <span><strong>Easy</strong><small>Warm-up logic</small></span>
+                  </button>
+                  <button class="choice-card" data-value="Medium">
+                    <span class="difficulty-dot medium-dot"></span>
+                    <span><strong>Medium</strong><small>Interview standard</small></span>
+                  </button>
+                  <button class="choice-card" data-value="Hard">
+                    <span class="difficulty-dot hard-dot"></span>
+                    <span><strong>Hard</strong><small>High-pressure reasoning</small></span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="builder-group">
+                <span class="builder-label">03 · Challenge focus</span>
+                <div class="choice-grid forge-focus-grid" data-forge-group="focus">
+                  <button class="choice-card active" data-value="Any">
+                    <span class="focus-icon">✦</span>
+                    <span><strong>Smart Mix</strong><small>Random across the full pool</small></span>
+                  </button>
+                  <button class="choice-card" data-value="Algorithms & Data Structures">
+                    <span class="focus-icon">◇</span>
+                    <span><strong>Algorithms</strong><small>DSA and LeetCode patterns</small></span>
+                  </button>
+                  <button class="choice-card" data-value="Practical Implementation">
+                    <span class="focus-icon">⌘</span>
+                    <span><strong>Practical</strong><small>Real development tasks</small></span>
+                  </button>
+                  <button class="choice-card" data-value="Debugging & Reasoning">
+                    <span class="focus-icon">⌁</span>
+                    <span><strong>Debugging</strong><small>Trace, repair, reason</small></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="forge-builder-footer">
+              <div>
+                <span class="forge-summary-label">NEXT ROUND</span>
+                <strong id="forgeSummary">JavaScript · Easy · Smart Mix</strong>
+                <small>CodeForge may draw from the LeetCode pool or create a fresh AI challenge.</small>
+              </div>
+
+              <button id="startForgeSession" class="launch-session-btn forge-launch-btn">
+                <span class="launch-copy">
+                  <small>AI RANDOMIZED</small>
+                  <strong>Forge challenge</strong>
+                </span>
+                <span class="launch-arrow">↗</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="forgeLoading" class="forge-loading" hidden>
+          <div class="forge-loading-core">
+            <div class="forge-load-ring flr-one"></div>
+            <div class="forge-load-ring flr-two"></div>
+            <span>&lt;/&gt;</span>
+          </div>
+          <div class="forge-loading-copy">
+            <span>CODEFORGE AI</span>
+            <h3 id="forgeLoadingText">Choosing a challenge pattern…</h3>
+            <p>Building a clean interview round around your settings.</p>
+          </div>
+          <div class="forge-loading-track"><i></i></div>
+        </div>
+
+        <div id="forgeWorkspace" class="forge-workspace" hidden>
+          <div class="forge-page-transition" aria-hidden="true">
+            <div class="forge-transition-line ftl-one"></div>
+            <div class="forge-transition-line ftl-two"></div>
+            <div class="forge-transition-line ftl-three"></div>
+            <div class="forge-transition-word">CODEFORGE</div>
+          </div>
+
+          <div class="forge-workspace-top">
+            <button id="newForgeSession" class="session-back">← New challenge</button>
+
+            <div class="forge-workspace-meta">
+              <span id="forgeSourceBadge">AI Original</span>
+              <span id="forgeLanguageBadge">JavaScript</span>
+              <span id="forgeDifficultyBadge">Easy</span>
+            </div>
+          </div>
+
+          <div class="forge-language-lock">
+            <div class="language-lock-main">
+              <span class="language-lock-dot"></span>
+              <div>
+                <small>LANGUAGE LOCKED</small>
+                <strong id="forgeLanguageLockText">JavaScript session</strong>
+              </div>
+            </div>
+            <div class="language-lock-copy">
+              <p id="forgeLanguageLockNote">
+                Write, run, review, and compare solutions in JavaScript for this challenge.
+              </p>
+              <small>Paste code normally. Hireland detects complete programs automatically.</small>
+            </div>
+          </div>
+
+          <div class="forge-workspace-grid forge-judge-grid">
+            <aside class="forge-problem forge-problem-full reflection-surface">
+              <div class="forge-problem-head">
+                <span>CODING CHALLENGE</span>
+                <span id="forgeProblemDifficulty">Easy</span>
+              </div>
+
+              <h2 id="forgeProblemTitle">Challenge title</h2>
+              <div id="forgeProblemStatement" class="forge-statement forge-full-statement"></div>
+
+              <div class="forge-section">
+                <span class="forge-section-label">INPUT</span>
+                <div id="forgeInputFormat" class="forge-format-copy"></div>
+              </div>
+
+              <div class="forge-section">
+                <span class="forge-section-label">OUTPUT</span>
+                <div id="forgeOutputFormat" class="forge-format-copy"></div>
+              </div>
+
+              <div class="forge-section">
+                <span class="forge-section-label">CONSTRAINTS</span>
+                <ul id="forgeConstraints"></ul>
+              </div>
+
+              <div class="forge-section">
+                <span class="forge-section-label">EXAMPLES</span>
+                <div id="forgeExamples" class="forge-examples"></div>
+              </div>
+            </aside>
+
+            <section class="forge-editor forge-judge-editor reflection-surface">
+              <div class="forge-editor-toolbar">
+                <div class="window-dots"><i></i><i></i><i></i></div>
+                <span id="forgeEditorLanguage">JavaScript</span>
+
+                <div class="forge-editor-actions forge-judge-actions">
+                  <button id="forgeResetCode">Reset</button>
+                  <button id="forgeRunCode" class="run-btn">Run samples ▶</button>
+                  <button id="forgeSubmitCode" class="submit-code-btn">Submit ✓</button>
+                </div>
+              </div>
+
+              <div class="forge-editor-language-bar">
+                <div>
+                  <span class="editor-lang-dot"></span>
+                  <strong id="forgeEditorModeLabel">JavaScript mode</strong>
+                </div>
+
+                <div class="forge-editor-contract">
+                  <span id="forgeEditorContract">Input is provided by Hireland · return the answer</span>
+                  <span id="forgeIndentLabel">2 spaces · auto-indent</span>
+                </div>
+              </div>
+
+              <div id="forgeCodeShell" class="forge-code-shell">
+                <!-- Monaco powers the normal IDE. The textarea remains only as a
+                     graceful fallback if Monaco cannot load. -->
+                <div id="forgeMonacoEditor" class="forge-monaco-editor" aria-label="CodeForge IDE"></div>
+
+                <div id="forgeLineNumbers" class="forge-line-numbers" aria-hidden="true">1</div>
+                <textarea id="forgeCodeEditor" class="forge-code-editor forge-code-fallback"
+                  spellcheck="false" autocapitalize="off" autocomplete="off"
+                  autocorrect="off" aria-label="CodeForge fallback code editor"
+                  placeholder="Write your solution here…"></textarea>
+              </div>
+
+              <div class="forge-test-dock">
+                <div class="forge-test-dock-head">
+                  <div>
+                    <span class="forge-test-kicker">TEST CASES</span>
+                    <strong>Run visible cases. Submit against hidden cases.</strong>
+                  </div>
+                  <span id="forgeJudgeState" class="judge-state">Not run</span>
+                </div>
+
+                <div class="forge-test-columns">
+                  <section class="forge-test-group">
+                    <div class="forge-test-group-head">
+                      <span>Sample tests</span>
+                      <strong id="forgeSampleScore">Not run</strong>
+                    </div>
+                    <div id="forgeSampleTests" class="forge-test-list"></div>
+                  </section>
+
+                  <section class="forge-test-group hidden-test-group">
+                    <div class="forge-test-group-head">
+                      <span>Hidden tests</span>
+                      <strong id="forgeHiddenScore">Runs on submit</strong>
+                    </div>
+                    <div id="forgeHiddenTests" class="forge-test-list"></div>
+                  </section>
+                </div>
+              </div>
+
+              <div class="forge-console">
+                <div class="terminal-head">
+                  <span>SESSION CONSOLE</span>
+                  <span id="forgeConsoleStatus" class="terminal-status">● ready</span>
+                </div>
+                <div id="forgeConsoleOutput">
+                  <p>&gt; Challenge loaded.</p>
+                  <p>&gt; Run checks sample tests. Submit checks hidden tests.</p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <section id="forgeMetricsPanel" class="forge-results-panel reflection-surface" hidden>
+            <div class="forge-results-head">
+              <div>
+                <span class="forge-test-kicker">SUBMISSION ANALYSIS</span>
+                <h3 id="forgeSubmissionTitle">Submission evaluated</h3>
+              </div>
+              <span id="forgeSubmissionBadge" class="submission-badge">Evaluated</span>
+            </div>
+
+            <div class="forge-metric-grid">
+              <article class="forge-metric-card">
+                <span>Runtime</span>
+                <strong id="forgeRuntimeMetric">—</strong>
+                <small>Total test execution</small>
+              </article>
+              <article class="forge-metric-card">
+                <span>Time complexity</span>
+                <strong id="forgeTimeComplexity">—</strong>
+                <small id="forgeTimeComplexityNote">Analyzed after submission</small>
+              </article>
+              <article class="forge-metric-card">
+                <span>Space complexity</span>
+                <strong id="forgeSpaceComplexity">—</strong>
+                <small id="forgeSpaceComplexityNote">Analyzed after submission</small>
+              </article>
+              <article class="forge-metric-card">
+                <span>Hidden tests</span>
+                <strong id="forgeHiddenMetric">—</strong>
+                <small>Private judge cases</small>
+              </article>
+            </div>
+
+            <div class="forge-language-review">
+              <div class="forge-language-review-head">
+                <div>
+                  <span class="forge-test-kicker">LANGUAGE-SPECIFIC REVIEW</span>
+                  <h4 id="forgeReviewTitle">Code review</h4>
+                </div>
+                <span id="forgeReviewLanguageBadge" class="review-language-badge">JavaScript</span>
+              </div>
+
+              <p id="forgeReviewSummary" class="forge-review-summary">
+                Submit your solution to receive a language-specific review.
+              </p>
+
+              <div class="forge-review-columns">
+                <div>
+                  <span class="forge-review-label">WHAT WORKED</span>
+                  <ul id="forgeReviewStrengths"></ul>
+                </div>
+                <div>
+                  <span class="forge-review-label">WHAT TO IMPROVE</span>
+                  <ul id="forgeReviewImprovements"></ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="forgeSolutionPanel" class="forge-solution-panel reflection-surface" hidden>
+            <div class="forge-solution-head">
+              <div>
+                <span class="forge-test-kicker">UNLOCKED AFTER ACCEPTANCE</span>
+                <h3>Best solution</h3>
+                <p>Shown only after every sample and hidden test passes.</p>
+              </div>
+
+              <div class="best-complexity-row">
+                <span id="forgeBestTime">Time —</span>
+                <span id="forgeBestSpace">Space —</span>
+              </div>
+            </div>
+
+            <pre class="forge-best-code"><code id="forgeBestSolution"></code></pre>
+          </section>
+        </div>
+      </section>
+
+
+      <!-- PROBLEM VAULT -->
+      <section class="tab-panel" id="vault">
+        <div id="vaultLauncher" class="vault-launcher">
+          <div class="vault-intro-grid">
+            <div class="vault-launch-copy">
+              <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                RANDOMIZED CODING PRACTICE
+              </div>
+
+              <div class="vault-title-wrap">
+                <span class="vault-index">PROBLEM VAULT</span>
+                <h2>Build a session<br><span>around your pace.</span></h2>
+              </div>
+
+              <p class="vault-lead">
+                Choose your environment, set the pressure, and let Hireland select a challenge
+                that matches the session you want today.
+              </p>
+
+              <div class="vault-signal-row">
+                <span><i></i> Randomized challenge</span>
+                <span><i></i> One problem at a time</span>
+                <span><i></i> Focus-first workspace</span>
+              </div>
+            </div>
+
+            <div class="vault-visual" aria-hidden="true">
+              <div class="vault-orbit orbit-large"></div>
+              <div class="vault-orbit orbit-small"></div>
+              <div class="vault-core">
+                <span class="core-bracket">&lt;/&gt;</span>
+                <strong>Session Engine</strong>
+                <small>waiting for your setup</small>
+              </div>
+              <span class="vault-float vf-one">LANGUAGE</span>
+              <span class="vault-float vf-two">DIFFICULTY</span>
+              <span class="vault-float vf-three">TIME</span>
+            </div>
+          </div>
+
+          <div class="session-builder reflection-surface">
+            <div class="builder-head">
+              <div>
+                <span class="builder-kicker">SESSION CONFIGURATION</span>
+                <h3>Set your challenge.</h3>
+              </div>
+              <span class="builder-state"><i></i> ready</span>
+            </div>
+
+            <div class="builder-grid">
+              <div class="builder-group">
+                <span class="builder-label">01 · Language</span>
+                <div class="choice-grid language-grid" data-choice-group="language">
+                  <button class="choice-card active" data-value="JavaScript">
+                    <span class="choice-symbol">JS</span>
+                    <span><strong>JavaScript</strong><small>Node-style environment</small></span>
+                  </button>
+                  <button class="choice-card" data-value="Python">
+                    <span class="choice-symbol">PY</span>
+                    <span><strong>Python</strong><small>Fast interview scripting</small></span>
+                  </button>
+                  <button class="choice-card" data-value="Java">
+                    <span class="choice-symbol">JV</span>
+                    <span><strong>Java</strong><small>Structured implementation</small></span>
+                  </button>
+                  <button class="choice-card" data-value="C++">
+                    <span class="choice-symbol">C+</span>
+                    <span><strong>C++</strong><small>Performance focused</small></span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="builder-group">
+                <span class="builder-label">02 · Difficulty</span>
+                <div class="choice-grid compact-grid" data-choice-group="difficulty">
+                  <button class="choice-card active" data-value="Easy">
+                    <span class="difficulty-dot easy-dot"></span>
+                    <span><strong>Easy</strong><small>Build momentum</small></span>
+                  </button>
+                  <button class="choice-card" data-value="Medium">
+                    <span class="difficulty-dot medium-dot"></span>
+                    <span><strong>Medium</strong><small>Interview standard</small></span>
+                  </button>
+                  <button class="choice-card" data-value="Hard">
+                    <span class="difficulty-dot hard-dot"></span>
+                    <span><strong>Hard</strong><small>Push your limits</small></span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="builder-group">
+                <span class="builder-label">03 · Time constraint</span>
+
+                <div class="timer-choice-shell">
+                  <div class="choice-grid timer-mode-grid" data-choice-group="timerMode">
+                    <button class="choice-card active" data-value="off">
+                      <span class="focus-icon">∞</span>
+                      <span><strong>Untimed</strong><small>Practice without a clock</small></span>
+                    </button>
+                    <button class="choice-card" data-value="on">
+                      <span class="focus-icon">◷</span>
+                      <span><strong>Timed</strong><small>Set your own limit</small></span>
+                    </button>
+                  </div>
+
+                  <div id="vaultCustomTime" class="custom-time-panel" hidden>
+                    <div>
+                      <span class="custom-time-label">ENTER TIME LIMIT</span>
+                      <strong>How many minutes do you want?</strong>
+                    </div>
+                    <label class="custom-time-input">
+                      <input id="vaultTimeInput" type="number" min="1" max="180" value="30"
+                        inputmode="numeric" aria-label="Time limit in minutes">
+                      <span>minutes</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="builder-footer">
+              <div class="session-summary">
+                <span>SESSION</span>
+                <strong id="sessionSummary">JavaScript · Easy · 30 min</strong>
+              </div>
+
+              <button id="startVaultSession" class="launch-session-btn">
+                <span class="launch-copy">
+                  <small>RANDOMIZED SESSION</small>
+                  <strong>Start challenge</strong>
+                </span>
+                <span class="launch-arrow">↗</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="vaultSession" class="vault-session" hidden>
+          <div class="session-transition-label">SESSION INITIALIZED</div>
+
+          <div class="session-top">
+            <button id="exitVaultSession" class="session-back">← New session</button>
+
+            <div class="session-meta">
+              <span id="sessionLanguage">JavaScript</span>
+              <span id="sessionDifficulty">Easy</span>
+              <span id="vaultSessionTimerWrap" class="session-timer" hidden>
+                <i></i>
+                <strong id="sessionTimer">30:00</strong>
+              </span>
+            </div>
+          </div>
+
+          <div class="challenge-shell reflection-surface">
+            <div class="challenge-copy">
+              <span id="challengeIndex" class="challenge-index">RANDOM CHALLENGE</span>
+              <h2 id="challengeTitle">Challenge loading…</h2>
+
+              <div class="challenge-tags">
+                <span id="challengeTopic">Algorithm</span>
+                <span id="challengeDifficultyTag">Easy</span>
+              </div>
+
+              <div class="challenge-placeholder">
+                <span class="challenge-placeholder-icon">◇</span>
+                <div>
+                  <strong>Full challenge workspace comes next.</strong>
+                  <p>
+                    This session flow is now ready for problem statements, sample tests,
+                    hidden tests, solutions, and the coding engine without loading a wall
+                    of problem cards upfront.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="session-code-preview">
+              <div class="preview-toolbar">
+                <span id="previewLanguage">JavaScript</span>
+                <span>editor ready</span>
+              </div>
+              <div class="preview-editor">
+                <span class="code-line-number">1</span>
+                <code id="starterCode">function solve(input) {</code>
+                <span class="code-line-number">2</span>
+                <code class="preview-comment">  // Think clearly. Build deliberately.</code>
+                <span class="code-line-number">3</span>
+                <code>}</code>
+              </div>
+
+              <div class="preview-footer">
+                <span>Sample tests</span>
+                <span>Hidden tests</span>
+                <span>Run code</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <footer class="footer">
+      <span>HIRELAND</span>
+      <span>Built for deliberate practice.</span>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
